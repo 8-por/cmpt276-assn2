@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rectangle List</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+</head>
+<body>
+    <h1>All Rectangles</h1>
+    <table class="listRectangles">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Color</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="rectangle, iterStat : ${listRectangles}">
+                <td th:text="${iterStat.count}">1</td>
+                <td>
+                    <div class="rectangle-descriptor">
+                        <a th:href="@{/rectangle/{id}(id=${rectangle.id})}" th:text="${rectangle.name}">Name</a>
+                        <div th:if="${rectangle.color != null}" th:style="'display: inline-block; width: 20px; height: 20px; margin-left: 10px; background-color: ' + ${rectangle.color}"></div>
+                    </div>
+                </td>
+                <td th:text="${rectangle.color != null ? rectangle.color : 'N/A'}">Color</td>
+                <td>
+                    <a th:href="@{/rectangle/delete/{id}(id=${rectangle.id})}" class="delete-link">DELETE</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/rectangle/new}">Add Rectangle</a>
+</body>
+</html>
